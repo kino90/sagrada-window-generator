@@ -1,0 +1,42 @@
+.Tiles {
+  justify-content: center;
+
+  display: grid;
+  grid-template-columns: repeat(5, 30px);
+  grid-template-rows: repeat(4, 30px);
+  column-gap: 3px;
+  row-gap: 3px;
+}
+
+.Tiles .Tiles__Tile {
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.Tiles .Tiles__Tile.Tile--red {
+  background-color: red;
+}
+.Tiles .Tiles__Tile.Tile--green {
+  background-color: green;
+}
+.Tiles .Tiles__Tile.Tile--blue {
+  background-color: blue;
+}
+.Tiles .Tiles__Tile.Tile--yellow {
+  background-color: yellow;
+}
+.Tiles .Tiles__Tile.Tile--purple {
+  background-color: rebeccapurple;
+}
+.Tiles .Tiles__Tile.Tile--one {
+}
+.Tiles .Tiles__Tile.Tile--two {
+}
+.Tiles .Tiles__Tile.Tile--three {
+}
+.Tiles .Tiles__Tile.Tile--four {
+}
+.Tiles .Tiles__Tile.Tile--five {
+}
+.Tiles .Tiles__Tile.Tile--six {
+}
