@@ -1,4 +1,4 @@
-import { IPreset, TColors, TNumbers, TTile, TVoid } from "./tileeditor.types";
+import { IPreset, TColors, TNumbers, TTile, TVoid } from "./windowEditor.types";
 
 export const colors: Record<TColors | TVoid, string> = {
   0: "Empty",
@@ -43,3 +43,6 @@ export const isValidCombination = (combination: string) => {
         Object.keys(numbers).includes(tile)
     );
 };
+
+export const printDifficulty = (difficulty: number) =>
+  new Array(difficulty).fill("•").join("");

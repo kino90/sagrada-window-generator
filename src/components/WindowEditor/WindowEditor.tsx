@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { TColors, TNumbers, TTile, TVoid } from "./tileeditor.types";
+import Wrapper from "../Wrapper/Wrapper";
+import Window from "./Window/Window";
+import { TTile } from "./windowEditor.types";
 import {
   colors,
-  numbers,
-  presets,
   emptyTile,
   isValidCombination,
-} from "./TileEditor.utils";
-import Tiles from "./Tiles";
+  numbers,
+  presets,
+  printDifficulty,
+} from "./WindowEditor.utils";
 
 interface IParams {
   currentCombination: string;
@@ -81,7 +83,10 @@ const TileEditor: React.FC = () => {
 
   const difficultyChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value) {
-      setTileDifficulty(Number(e.target.value));
+      const newValue = Number(e.target.value);
+      if (newValue >= 3 && newValue <= 6) {
+        setTileDifficulty(Number(e.target.value));
+      }
     }
   };
 
@@ -93,7 +98,31 @@ const TileEditor: React.FC = () => {
 
   return (
     <div>
-      <div>
+      <h1>Sagrada Window Generator</h1>
+
+      <Wrapper>
+        Window Name: <br />
+        <input
+          type="text"
+          name="name"
+          value={tileName}
+          onChange={nameChangeHandler}
+        />
+      </Wrapper>
+
+      <Wrapper>
+        Window Difficulty: <br />
+        <input
+          type="number"
+          name="difficulty"
+          min={3}
+          max={6}
+          value={tileDifficulty}
+          onChange={difficultyChangeHandler}
+        />
+      </Wrapper>
+
+      <Wrapper>
         {Object.entries(colors).map(([k, v]) => (
           <button
             style={{
@@ -105,9 +134,6 @@ const TileEditor: React.FC = () => {
             {v}
           </button>
         ))}
-      </div>
-
-      <div>
         {Object.entries(numbers).map(([k, v]) => (
           <button
             style={{
@@ -119,46 +145,33 @@ const TileEditor: React.FC = () => {
             {v}
           </button>
         ))}
-      </div>
+      </Wrapper>
 
-      <Tiles tiles={tiles} onSetTile={setTileHandler} />
-
-      <div>
-        Difficulty
-        <input
-          type="number"
-          name="difficulty"
-          min={3}
-          max={6}
-          value={tileDifficulty}
-          onChange={difficultyChangeHandler}
+      <Wrapper>
+        <Window
+          name={tileName}
+          difficulty={tileDifficulty}
+          tiles={tiles}
+          onSetTile={setTileHandler}
         />
-      </div>
+      </Wrapper>
 
-      <div>
-        Name
-        <input
-          type="text"
-          name="name"
-          value={tileName}
-          onChange={nameChangeHandler}
-        />
-      </div>
-
-      <h1>Preset</h1>
-      <ul>
-        {presets.map((preset, i) => (
-          <li key={i}>
-            <Link
-              to={`/${preset.tiles}/${preset.difficulty}/${encodeURIComponent(
-                preset.name
-              )}`}
-            >
-              {preset.name} {new Array(preset.difficulty).fill("•").join("")}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <Wrapper>
+        <h2>Presets</h2>
+        <ul>
+          {presets.map((preset, i) => (
+            <li key={i}>
+              <Link
+                to={`/${preset.tiles}/${preset.difficulty}/${encodeURIComponent(
+                  preset.name
+                )}`}
+              >
+                {preset.name} {printDifficulty(preset.difficulty)}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Wrapper>
     </div>
   );
 };

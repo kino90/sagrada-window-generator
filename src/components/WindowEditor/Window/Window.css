@@ -1,0 +1,74 @@
+.Window {
+  text-align: center;
+  user-select: none;
+}
+
+.Window__Wrapper {
+  display: inline-grid;
+  grid-template-columns: repeat(5, 50px);
+  grid-template-rows: repeat(4, 50px);
+  column-gap: 10px;
+  row-gap: 10px;
+  justify-content: center;
+
+  background: black;
+  padding: 10px;
+  margin: 10px auto;
+  border-radius: 6px;
+}
+
+.Window .Window__Tile {
+  cursor: pointer;
+  background: white;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+
+}
+
+.Window .Window__Tile.Tile--red {
+  background-color: red;
+}
+.Window .Window__Tile.Tile--green {
+  background-color: green;
+}
+.Window .Window__Tile.Tile--blue {
+  background-color: blue;
+}
+.Window .Window__Tile.Tile--yellow {
+  background-color: yellow;
+}
+.Window .Window__Tile.Tile--purple {
+  background-color: rebeccapurple;
+}
+.Window .Window__Tile.Tile--one {
+}
+.Window .Window__Tile.Tile--two {
+}
+.Window .Window__Tile.Tile--three {
+}
+.Window .Window__Tile.Tile--four {
+}
+.Window .Window__Tile.Tile--five {
+}
+.Window .Window__Tile.Tile--six {
+}
+
+.Window .Window__Footer {
+  color: white;
+  grid-column-start: 1;
+  grid-column-end: -1
+}
+
+.Window .Window__Footer-content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.Window .Window__Name {
+
+}
+.Window .Window__Difficulty {
+  font-size: 1.7rem;
+  line-height: 1rem;
+}
