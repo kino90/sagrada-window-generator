@@ -63,7 +63,7 @@ const TileEditor: React.FC = () => {
     if (name) {
       setTileName(decodeURIComponent(name));
     }
-  }, [currentCombination, difficulty, name]);
+  }, [currentCombination, difficulty, name, tiles]);
 
   const selectTile = (selectedTile: string) => () => {
     if (selectedTile) {
