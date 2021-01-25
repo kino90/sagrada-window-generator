@@ -44,5 +44,9 @@ export const isValidCombination = (combination: string) => {
     );
 };
 
-export const printDifficulty = (difficulty: number) =>
-  new Array(difficulty).fill("•").join("");
+export const printDifficulty = (difficulty: number) => {
+  if (!difficulty) {
+    return "";
+  }
+  return new Array(difficulty).fill("•").join("");
+};
