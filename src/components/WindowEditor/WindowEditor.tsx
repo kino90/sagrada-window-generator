@@ -19,7 +19,9 @@ interface IParams {
   name: string;
 }
 
-const TITLE_MAX_LENGTH = 20
+const TITLE_MAX_LENGTH = 20;
+const MIN_DIFFICULTY = 3;
+const MAX_DIFFICULTY = 6;
 
 const TileEditor: React.FC = () => {
   const { currentCombination, difficulty, name } = useParams<IParams>();
@@ -31,7 +33,7 @@ const TileEditor: React.FC = () => {
   );
   const [selectedTile, setSelectedTile] = useState<TTile>("0");
   const [tileDifficulty, setTileDifficulty] = useState<number>(
-    difficulty ? Number(difficulty) : 3
+    difficulty ? Number(difficulty) < MAX_DIFFICULTY ? Number(difficulty): MAX_DIFFICULTY : MIN_DIFFICULTY
   );
   const [tileName, setTileName] = useState<string>(name ? decodeURI(name).substring(0,TITLE_MAX_LENGTH) : "");
 
@@ -39,7 +41,7 @@ const TileEditor: React.FC = () => {
     let url = `/${tiles.join("")}`;
 
     if (tileDifficulty) {
-      url += `/${tileDifficulty}`;
+      url += `/${tileDifficulty > MAX_DIFFICULTY ? MAX_DIFFICULTY : tileDifficulty}`;
     }
 
     if (tileName) {
@@ -109,7 +111,7 @@ const TileEditor: React.FC = () => {
           type="text"
           name="name"
           value={tileName}
-          maxLength={20}
+          maxLength={TITLE_MAX_LENGTH}
           onChange={nameChangeHandler}
         />
       </Wrapper>
@@ -119,8 +121,8 @@ const TileEditor: React.FC = () => {
         <input
           type="number"
           name="difficulty"
-          min={3}
-          max={6}
+          min={MIN_DIFFICULTY}
+          max={MAX_DIFFICULTY}
           value={tileDifficulty}
           onChange={difficultyChangeHandler}
         />
