@@ -19,6 +19,8 @@ interface IParams {
   name: string;
 }
 
+const TITLE_MAX_LENGTH = 20
+
 const TileEditor: React.FC = () => {
   const { currentCombination, difficulty, name } = useParams<IParams>();
   const history = useHistory();
@@ -29,9 +31,9 @@ const TileEditor: React.FC = () => {
   );
   const [selectedTile, setSelectedTile] = useState<TTile>("0");
   const [tileDifficulty, setTileDifficulty] = useState<number>(
-    Number(difficulty) ?? 3
+    difficulty ? Number(difficulty) : 3
   );
-  const [tileName, setTileName] = useState<string>(name ? decodeURI(name) : "");
+  const [tileName, setTileName] = useState<string>(name ? decodeURI(name).substring(0,TITLE_MAX_LENGTH) : "");
 
   useEffect(() => {
     let url = `/${tiles.join("")}`;
@@ -41,7 +43,7 @@ const TileEditor: React.FC = () => {
     }
 
     if (tileName) {
-      url += `/${encodeURIComponent(tileName)}`;
+      url += `/${encodeURIComponent(tileName).substring(0,TITLE_MAX_LENGTH)}`;
     }
 
     history.replace(url);
@@ -63,7 +65,7 @@ const TileEditor: React.FC = () => {
     if (name) {
       setTileName(decodeURIComponent(name));
     }
-  }, [currentCombination, difficulty, name, tiles]);
+  }, [currentCombination, difficulty, name]);
 
   const selectTile = (selectedTile: string) => () => {
     if (selectedTile) {
@@ -106,6 +108,7 @@ const TileEditor: React.FC = () => {
           type="text"
           name="name"
           value={tileName}
+          maxLength={20}
           onChange={nameChangeHandler}
         />
       </Wrapper>
