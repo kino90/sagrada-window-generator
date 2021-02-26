@@ -65,6 +65,7 @@ const TileEditor: React.FC = () => {
     if (name) {
       setTileName(decodeURIComponent(name));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCombination, difficulty, name]);
 
   const selectTile = (selectedTile: string) => () => {
